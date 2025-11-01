@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
-import { LogIn, UserPlus } from 'lucide-react';
+import { LogIn, UserPlus, CheckCircle, AlertCircle } from 'lucide-react';
 
 export function LoginForm() {
   const [isSignUp, setIsSignUp] = useState(false);
@@ -10,12 +10,14 @@ export function LoginForm() {
   const [lastName, setLastName] = useState('');
   const [phone, setPhone] = useState('');
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
   const [loading, setLoading] = useState(false);
   const { signIn, signUp } = useAuth();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
+    setSuccess('');
     setLoading(true);
 
     try {
@@ -26,11 +28,29 @@ export function LoginForm() {
           last_name: lastName,
           phone: phone
         });
+        setSuccess('Cuenta creada exitosamente. Redirigiendo a tu panel...');
       } else {
         await signIn(email, password);
+        setSuccess('Inicio de sesión exitoso. Redirigiendo...');
       }
     } catch (err) {
-      setError(err instanceof Error ? err.message : `Failed to ${isSignUp ? 'sign up' : 'sign in'}`);
+      let errorMessage = 'Ocurrió un error inesperado';
+
+      if (err instanceof Error) {
+        if (err.message.includes('Invalid login credentials')) {
+          errorMessage = 'Correo o contraseña incorrectos. Por favor, verifica tus datos.';
+        } else if (err.message.includes('Email not confirmed')) {
+          errorMessage = 'Por favor, confirma tu correo electrónico antes de iniciar sesión.';
+        } else if (err.message.includes('User already registered')) {
+          errorMessage = 'Este correo ya está registrado. Intenta iniciar sesión.';
+        } else if (err.message.includes('Password should be at least 6 characters')) {
+          errorMessage = 'La contraseña debe tener al menos 6 caracteres.';
+        } else {
+          errorMessage = err.message;
+        }
+      }
+
+      setError(errorMessage);
     } finally {
       setLoading(false);
     }
@@ -39,6 +59,7 @@ export function LoginForm() {
   const toggleMode = () => {
     setIsSignUp(!isSignUp);
     setError('');
+    setSuccess('');
     setEmail('');
     setPassword('');
     setFirstName('');
@@ -64,8 +85,16 @@ export function LoginForm() {
 
         <form onSubmit={handleSubmit} className="space-y-6">
           {error && (
-            <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
-              {error}
+            <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg flex items-start space-x-2">
+              <AlertCircle className="w-5 h-5 flex-shrink-0 mt-0.5" />
+              <span>{error}</span>
+            </div>
+          )}
+
+          {success && (
+            <div className="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg flex items-start space-x-2">
+              <CheckCircle className="w-5 h-5 flex-shrink-0 mt-0.5" />
+              <span>{success}</span>
             </div>
           )}
 
