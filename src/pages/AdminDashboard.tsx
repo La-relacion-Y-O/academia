@@ -93,7 +93,7 @@ export function AdminDashboard() {
   };
 
   const handleDeleteUser = async (id: string) => {
-    if (!confirm('Are you sure you want to delete this user?')) return;
+    if (!confirm('¿Estás seguro de que quieres eliminar este usuario?')) return;
     try {
       await profileService.delete(id);
       loadData();
@@ -104,7 +104,7 @@ export function AdminDashboard() {
   };
 
   const handleDeleteSubject = async (id: string) => {
-    if (!confirm('Are you sure you want to delete this subject?')) return;
+    if (!confirm('¿Estás seguro de que quieres eliminar esta materia?')) return;
     try {
       await subjectService.delete(id);
       loadData();
@@ -138,7 +138,7 @@ export function AdminDashboard() {
           <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-600">Total Users</p>
+                <p className="text-sm text-gray-600">Total de Usuarios</p>
                 <p className="text-3xl font-bold text-gray-900 mt-1">{stats.totalUsers}</p>
               </div>
               <Users className="w-10 h-10 text-blue-600" />
@@ -148,7 +148,7 @@ export function AdminDashboard() {
           <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-600">Students</p>
+                <p className="text-sm text-gray-600">Estudiantes</p>
                 <p className="text-3xl font-bold text-gray-900 mt-1">{stats.students}</p>
               </div>
               <Users className="w-10 h-10 text-green-600" />
@@ -158,7 +158,7 @@ export function AdminDashboard() {
           <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-600">Teachers</p>
+                <p className="text-sm text-gray-600">Profesores</p>
                 <p className="text-3xl font-bold text-gray-900 mt-1">{stats.teachers}</p>
               </div>
               <Users className="w-10 h-10 text-orange-600" />
@@ -168,7 +168,7 @@ export function AdminDashboard() {
           <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-600">Subjects</p>
+                <p className="text-sm text-gray-600">Materias</p>
                 <p className="text-3xl font-bold text-gray-900 mt-1">{stats.subjects}</p>
               </div>
               <BookOpen className="w-10 h-10 text-red-600" />
@@ -187,7 +187,7 @@ export function AdminDashboard() {
                     : 'border-transparent text-gray-600 hover:text-gray-900'
                 }`}
               >
-                Users Management
+                Gestión de Usuarios
               </button>
               <button
                 onClick={() => setActiveTab('subjects')}
@@ -197,7 +197,7 @@ export function AdminDashboard() {
                     : 'border-transparent text-gray-600 hover:text-gray-900'
                 }`}
               >
-                Subjects
+                Materias
               </button>
             </div>
           </div>
@@ -208,7 +208,7 @@ export function AdminDashboard() {
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
                 <input
                   type="text"
-                  placeholder="Search..."
+                  placeholder="Buscar..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
@@ -220,7 +220,7 @@ export function AdminDashboard() {
                 className="flex items-center space-x-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition"
               >
                 <Plus className="w-5 h-5" />
-                <span>Add {activeTab === 'users' ? 'User' : 'Subject'}</span>
+                <span>Añadir {activeTab === 'users' ? 'Usuario' : 'Materia'}</span>
               </button>
             </div>
 
@@ -229,11 +229,11 @@ export function AdminDashboard() {
                 <table className="w-full">
                   <thead className="bg-gray-50">
                     <tr>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Role</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Phone</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Created</th>
-                      <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nombre</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Rol</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Teléfono</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Creado</th>
+                      <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Acciones</th>
                     </tr>
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-200">
@@ -279,11 +279,11 @@ export function AdminDashboard() {
                 <table className="w-full">
                   <thead className="bg-gray-50">
                     <tr>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Code</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Credits</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Description</th>
-                      <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Código</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nombre</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Créditos</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Descripción</th>
+                      <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Acciones</th>
                     </tr>
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-200">
@@ -324,10 +324,10 @@ export function AdminDashboard() {
       {showUserModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
           <div className="bg-white rounded-xl shadow-xl max-w-md w-full p-6">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">Create New User</h2>
+            <h2 className="text-2xl font-bold text-gray-900 mb-6">Crear Nuevo Usuario</h2>
             <form onSubmit={handleCreateUser} className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Correo</label>
                 <input
                   type="email"
                   required
@@ -338,7 +338,7 @@ export function AdminDashboard() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Password</label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Contraseña</label>
                 <input
                   type="password"
                   required
@@ -349,7 +349,7 @@ export function AdminDashboard() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">First Name</label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Nombre</label>
                 <input
                   type="text"
                   required
@@ -360,7 +360,7 @@ export function AdminDashboard() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Last Name</label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Apellido</label>
                 <input
                   type="text"
                   required
@@ -377,14 +377,14 @@ export function AdminDashboard() {
                   onChange={(e) => setNewUser({ ...newUser, role: e.target.value as 'admin' | 'teacher' | 'student' })}
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 >
-                  <option value="student">Student</option>
-                  <option value="teacher">Teacher</option>
-                  <option value="admin">Admin</option>
+                  <option value="student">Estudiante</option>
+                  <option value="teacher">Profesor</option>
+                  <option value="admin">Administrador</option>
                 </select>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Phone</label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Teléfono</label>
                 <input
                   type="tel"
                   value={newUser.phone}
@@ -399,13 +399,13 @@ export function AdminDashboard() {
                   onClick={() => setShowUserModal(false)}
                   className="flex-1 px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition"
                 >
-                  Cancel
+                  Cancelar
                 </button>
                 <button
                   type="submit"
                   className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
                 >
-                  Create User
+                  Crear Usuario
                 </button>
               </div>
             </form>
@@ -416,7 +416,7 @@ export function AdminDashboard() {
       {showSubjectModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
           <div className="bg-white rounded-xl shadow-xl max-w-md w-full p-6">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">Create New Subject</h2>
+            <h2 className="text-2xl font-bold text-gray-900 mb-6">Crear Nueva Materia</h2>
             <form onSubmit={handleCreateSubject} className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">Subject Code</label>
@@ -426,7 +426,7 @@ export function AdminDashboard() {
                   value={newSubject.code}
                   onChange={(e) => setNewSubject({ ...newSubject, code: e.target.value })}
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  placeholder="e.g., CS101"
+                  placeholder="p. ej., CS101"
                 />
               </div>
 
@@ -438,12 +438,12 @@ export function AdminDashboard() {
                   value={newSubject.name}
                   onChange={(e) => setNewSubject({ ...newSubject, name: e.target.value })}
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  placeholder="e.g., Introduction to Computer Science"
+                  placeholder="p. ej., Introducción a Ciencias de la Computación"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Credits</label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Créditos</label>
                 <input
                   type="number"
                   required
@@ -462,7 +462,7 @@ export function AdminDashboard() {
                   onChange={(e) => setNewSubject({ ...newSubject, description: e.target.value })}
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   rows={3}
-                  placeholder="Enter subject description..."
+                  placeholder="Ingresa la descripción de la materia..."
                 />
               </div>
 
@@ -472,13 +472,13 @@ export function AdminDashboard() {
                   onClick={() => setShowSubjectModal(false)}
                   className="flex-1 px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition"
                 >
-                  Cancel
+                  Cancelar
                 </button>
                 <button
                   type="submit"
                   className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
                 >
-                  Create Subject
+                  Crear Materia
                 </button>
               </div>
             </form>

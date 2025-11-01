@@ -162,7 +162,7 @@ export function TeacherDashboard() {
     <Layout>
       <div className="space-y-6">
         <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">My Subjects</h2>
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">Mis Materias</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {subjects.map((subject) => (
               <button
@@ -177,7 +177,7 @@ export function TeacherDashboard() {
                 <div className="flex items-start justify-between mb-2">
                   <BookOpen className="w-6 h-6 text-green-600" />
                   <span className="text-sm font-medium text-gray-600">
-                    {subject.enrollments.length} students
+                    {subject.enrollments.length} estudiantes
                   </span>
                 </div>
                 <h3 className="font-bold text-gray-900">{subject.code}</h3>
@@ -199,7 +199,7 @@ export function TeacherDashboard() {
                       : 'border-transparent text-gray-600 hover:text-gray-900'
                   }`}
                 >
-                  Grades Management
+                  Gestión de Calificaciones
                 </button>
                 <button
                   onClick={() => setActiveTab('attendance')}
@@ -209,7 +209,7 @@ export function TeacherDashboard() {
                       : 'border-transparent text-gray-600 hover:text-gray-900'
                   }`}
                 >
-                  Attendance Tracking
+                  Seguimiento de Asistencia
                 </button>
               </div>
             </div>
@@ -244,7 +244,7 @@ export function TeacherDashboard() {
                             className="flex items-center space-x-2 bg-green-600 text-white px-3 py-1 rounded-lg hover:bg-green-700 transition text-sm"
                           >
                             <Plus className="w-4 h-4" />
-                            <span>Add Grade</span>
+                            <span>Añadir Calificación</span>
                           </button>
                         </div>
 
@@ -266,7 +266,7 @@ export function TeacherDashboard() {
                             </div>
                           ))}
                           {grades.length === 0 && (
-                            <p className="text-sm text-gray-500 text-center py-2">No grades yet</p>
+                            <p className="text-sm text-gray-500 text-center py-2">Aún no hay calificaciones</p>
                           )}
                         </div>
                       </div>
@@ -300,7 +300,7 @@ export function TeacherDashboard() {
                             className="flex items-center space-x-2 bg-green-600 text-white px-3 py-1 rounded-lg hover:bg-green-700 transition text-sm"
                           >
                             <Plus className="w-4 h-4" />
-                            <span>Mark Attendance</span>
+                            <span>Marcar Asistencia</span>
                           </button>
                         </div>
 
@@ -330,27 +330,27 @@ export function TeacherDashboard() {
       {showGradeModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
           <div className="bg-white rounded-xl shadow-xl max-w-md w-full p-6">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">Add Grade</h2>
+            <h2 className="text-2xl font-bold text-gray-900 mb-6">Añadir Calificación</h2>
             <form onSubmit={handleAddGrade} className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Grade Type</label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Tipo de Calificación</label>
                 <select
                   value={newGrade.grade_type}
                   onChange={(e) => setNewGrade({ ...newGrade, grade_type: e.target.value as Grade['grade_type'] })}
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
                 >
-                  <option value="assignment">Assignment</option>
+                  <option value="assignment">Tarea</option>
                   <option value="quiz">Quiz</option>
-                  <option value="exam">Exam</option>
-                  <option value="project">Project</option>
-                  <option value="midterm">Midterm</option>
+                  <option value="exam">Examen</option>
+                  <option value="project">Proyecto</option>
+                  <option value="midterm">Parcial</option>
                   <option value="final">Final</option>
                 </select>
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Grade</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Calificación</label>
                   <input
                     type="number"
                     required
@@ -363,7 +363,7 @@ export function TeacherDashboard() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Max Value</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Valor Máximo</label>
                   <input
                     type="number"
                     required
@@ -377,7 +377,7 @@ export function TeacherDashboard() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Weight</label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Peso</label>
                 <input
                   type="number"
                   required
@@ -391,13 +391,13 @@ export function TeacherDashboard() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Description</label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Descripción</label>
                 <input
                   type="text"
                   value={newGrade.description}
                   onChange={(e) => setNewGrade({ ...newGrade, description: e.target.value })}
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
-                  placeholder="Optional description"
+                  placeholder="Descripción opcional"
                 />
               </div>
 
@@ -407,13 +407,13 @@ export function TeacherDashboard() {
                   onClick={() => setShowGradeModal(false)}
                   className="flex-1 px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition"
                 >
-                  Cancel
+                  Cancelar
                 </button>
                 <button
                   type="submit"
                   className="flex-1 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition"
                 >
-                  Add Grade
+                  Añadir Calificación
                 </button>
               </div>
             </form>
@@ -424,10 +424,10 @@ export function TeacherDashboard() {
       {showAttendanceModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
           <div className="bg-white rounded-xl shadow-xl max-w-md w-full p-6">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">Mark Attendance</h2>
+            <h2 className="text-2xl font-bold text-gray-900 mb-6">Marcar Asistencia</h2>
             <form onSubmit={handleAddAttendance} className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Date</label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Fecha</label>
                 <input
                   type="date"
                   required
@@ -438,27 +438,27 @@ export function TeacherDashboard() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Status</label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Estado</label>
                 <select
                   value={newAttendance.status}
                   onChange={(e) => setNewAttendance({ ...newAttendance, status: e.target.value as Attendance['status'] })}
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
                 >
-                  <option value="present">Present</option>
-                  <option value="absent">Absent</option>
-                  <option value="late">Late</option>
-                  <option value="excused">Excused</option>
+                  <option value="present">Presente</option>
+                  <option value="absent">Ausente</option>
+                  <option value="late">Retrasado</option>
+                  <option value="excused">Justificado</option>
                 </select>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Notes</label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Notas</label>
                 <textarea
                   value={newAttendance.notes}
                   onChange={(e) => setNewAttendance({ ...newAttendance, notes: e.target.value })}
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
                   rows={3}
-                  placeholder="Optional notes..."
+                  placeholder="Notas opcionales..."
                 />
               </div>
 
@@ -468,13 +468,13 @@ export function TeacherDashboard() {
                   onClick={() => setShowAttendanceModal(false)}
                   className="flex-1 px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition"
                 >
-                  Cancel
+                  Cancelar
                 </button>
                 <button
                   type="submit"
                   className="flex-1 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition"
                 >
-                  Save Attendance
+                  Guardar Asistencia
                 </button>
               </div>
             </form>

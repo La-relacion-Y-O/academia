@@ -80,7 +80,7 @@ export function StudentDashboard() {
     : 0;
 
   const attendanceChartData = {
-    labels: ['Present', 'Absent', 'Late', 'Excused'],
+    labels: ['Presente', 'Ausente', 'Retrasado', 'Justificado'],
     datasets: [{
       data: currentEnrollment ? [
         currentEnrollment.attendance.filter(a => a.status === 'present').length,
@@ -94,9 +94,9 @@ export function StudentDashboard() {
   };
 
   const gradesOverTimeData = {
-    labels: currentEnrollment?.grades.map((_, i) => `Grade ${i + 1}`) || [],
+    labels: currentEnrollment?.grades.map((_, i) => `Calificación ${i + 1}`) || [],
     datasets: [{
-      label: 'Grade Percentage',
+      label: 'Porcentaje de Calificación',
       data: currentEnrollment?.grades.map(g => (g.grade_value / g.max_value) * 100) || [],
       borderColor: '#3b82f6',
       backgroundColor: 'rgba(59, 130, 246, 0.1)',
@@ -108,7 +108,7 @@ export function StudentDashboard() {
   const subjectPerformanceData = {
     labels: enrollments.map(e => e.subject.code),
     datasets: [{
-      label: 'Average Grade (%)',
+      label: 'Promedio de Calificación (%)',
       data: enrollments.map(e => e.average),
       backgroundColor: 'rgba(59, 130, 246, 0.8)',
     }]
@@ -153,7 +153,7 @@ ${currentEnrollment.attendance.map(a =>
           <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-600">Enrolled Subjects</p>
+                <p className="text-sm text-gray-600">Materias Inscritas</p>
                 <p className="text-3xl font-bold text-gray-900 mt-1">{enrollments.length}</p>
               </div>
               <BookOpen className="w-10 h-10 text-blue-600" />
@@ -163,7 +163,7 @@ ${currentEnrollment.attendance.map(a =>
           <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-600">Overall Average</p>
+                <p className="text-sm text-gray-600">Promedio General</p>
                 <p className="text-3xl font-bold text-gray-900 mt-1">{overallAverage.toFixed(1)}%</p>
               </div>
               <Award className="w-10 h-10 text-green-600" />
@@ -173,7 +173,7 @@ ${currentEnrollment.attendance.map(a =>
           <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-600">Attendance Rate</p>
+                <p className="text-sm text-gray-600">Tasa de Asistencia</p>
                 <p className="text-3xl font-bold text-gray-900 mt-1">{overallAttendance.toFixed(1)}%</p>
               </div>
               <Calendar className="w-10 h-10 text-orange-600" />
@@ -182,7 +182,7 @@ ${currentEnrollment.attendance.map(a =>
         </div>
 
         <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
-          <h2 className="text-xl font-bold text-gray-900 mb-4">Subject Performance Overview</h2>
+          <h2 className="text-xl font-bold text-gray-900 mb-4">Rendimiento por Materia</h2>
           <div className="h-64">
             <Bar
               data={subjectPerformanceData}
@@ -206,7 +206,7 @@ ${currentEnrollment.attendance.map(a =>
         </div>
 
         <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
-          <h2 className="text-xl font-bold text-gray-900 mb-4">My Subjects</h2>
+          <h2 className="text-xl font-bold text-gray-900 mb-4">Mis Materias</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {enrollments.map((enrollment) => (
               <button
@@ -221,17 +221,17 @@ ${currentEnrollment.attendance.map(a =>
                 <div className="flex items-start justify-between mb-2">
                   <BookOpen className="w-6 h-6 text-blue-600" />
                   <span className="text-sm font-medium text-gray-600">
-                    {enrollment.subject.credits} credits
+                    {enrollment.subject.credits} créditos
                   </span>
                 </div>
                 <h3 className="font-bold text-gray-900">{enrollment.subject.code}</h3>
                 <p className="text-sm text-gray-600 mt-1 mb-2">{enrollment.subject.name}</p>
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-600">Average:</span>
+                  <span className="text-gray-600">Promedio:</span>
                   <span className="font-bold text-blue-600">{enrollment.average.toFixed(1)}%</span>
                 </div>
                 <div className="flex justify-between text-sm mt-1">
-                  <span className="text-gray-600">Attendance:</span>
+                  <span className="text-gray-600">Asistencia:</span>
                   <span className="font-bold text-green-600">{enrollment.attendanceRate.toFixed(1)}%</span>
                 </div>
               </button>
@@ -251,13 +251,13 @@ ${currentEnrollment.attendance.map(a =>
                   className="flex items-center space-x-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition"
                 >
                   <Download className="w-4 h-4" />
-                  <span>Export Report</span>
+                  <span>Descargar Reporte</span>
                 </button>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <h3 className="font-bold text-gray-900 mb-4">Attendance Distribution</h3>
+                  <h3 className="font-bold text-gray-900 mb-4">Distribución de Asistencia</h3>
                   <div className="h-64">
                     <Doughnut
                       data={attendanceChartData}
@@ -275,7 +275,7 @@ ${currentEnrollment.attendance.map(a =>
                 </div>
 
                 <div>
-                  <h3 className="font-bold text-gray-900 mb-4">Grade Trend</h3>
+                  <h3 className="font-bold text-gray-900 mb-4">Tendencia de Calificaciones</h3>
                   <div className="h-64">
                     <Line
                       data={gradesOverTimeData}
@@ -304,7 +304,7 @@ ${currentEnrollment.attendance.map(a =>
               <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
                 <h3 className="font-bold text-gray-900 mb-4 flex items-center">
                   <Award className="w-5 h-5 mr-2 text-blue-600" />
-                  Grades
+                  Calificaciones
                 </h3>
                 <div className="space-y-3">
                   {currentEnrollment.grades.map((grade) => (
@@ -321,13 +321,13 @@ ${currentEnrollment.attendance.map(a =>
                         </span>
                       </div>
                       <div className="flex justify-between text-sm text-gray-600">
-                        <span>Score: {grade.grade_value}/{grade.max_value}</span>
+                        <span>Puntuación: {grade.grade_value}/{grade.max_value}</span>
                         <span>{new Date(grade.graded_at).toLocaleDateString()}</span>
                       </div>
                     </div>
                   ))}
                   {currentEnrollment.grades.length === 0 && (
-                    <p className="text-center text-gray-500 py-4">No grades yet</p>
+                    <p className="text-center text-gray-500 py-4">Aún no hay calificaciones</p>
                   )}
                 </div>
               </div>
@@ -335,7 +335,7 @@ ${currentEnrollment.attendance.map(a =>
               <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
                 <h3 className="font-bold text-gray-900 mb-4 flex items-center">
                   <Calendar className="w-5 h-5 mr-2 text-orange-600" />
-                  Attendance Records
+                  Registros de Asistencia
                 </h3>
                 <div className="space-y-2">
                   {currentEnrollment.attendance.slice(0, 10).map((record) => (
@@ -360,7 +360,7 @@ ${currentEnrollment.attendance.map(a =>
                     </div>
                   ))}
                   {currentEnrollment.attendance.length === 0 && (
-                    <p className="text-center text-gray-500 py-4">No attendance records yet</p>
+                    <p className="text-center text-gray-500 py-4">Aún no hay registros de asistencia</p>
                   )}
                 </div>
               </div>

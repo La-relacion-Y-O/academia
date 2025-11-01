@@ -38,10 +38,10 @@ export function Layout({ children }: LayoutProps) {
               </div>
               <div>
                 <h1 className="text-xl font-bold text-gray-900">
-                  Academic Control System
+                  Sistema de Control Académico
                 </h1>
                 <p className="text-xs text-gray-600 capitalize">
-                  {profile?.role} Portal
+                  Portal del {profile?.role === 'admin' ? 'Administrador' : profile?.role === 'teacher' ? 'Profesor' : 'Estudiante'}
                 </p>
               </div>
             </div>
@@ -58,7 +58,7 @@ export function Layout({ children }: LayoutProps) {
                 className="flex items-center space-x-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg transition"
               >
                 <LogOut className="w-4 h-4" />
-                <span className="text-sm font-medium">Sign Out</span>
+                <span className="text-sm font-medium">Cerrar Sesión</span>
               </button>
             </div>
           </div>

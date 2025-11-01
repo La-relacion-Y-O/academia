@@ -56,10 +56,10 @@ export function LoginForm() {
         </div>
 
         <h1 className="text-3xl font-bold text-center text-gray-800 mb-2">
-          Academic Control System
+          Sistema de Control Académico
         </h1>
         <p className="text-center text-gray-600 mb-8">
-          {isSignUp ? 'Create your student account' : 'Sign in to access your account'}
+          {isSignUp ? 'Crear tu cuenta de estudiante' : 'Inicia sesión para acceder a tu cuenta'}
         </p>
 
         <form onSubmit={handleSubmit} className="space-y-6">
@@ -74,7 +74,7 @@ export function LoginForm() {
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 mb-2">
-                    First Name
+                    Nombre
                   </label>
                   <input
                     id="firstName"
@@ -88,7 +88,7 @@ export function LoginForm() {
                 </div>
                 <div>
                   <label htmlFor="lastName" className="block text-sm font-medium text-gray-700 mb-2">
-                    Last Name
+                    Apellido
                   </label>
                   <input
                     id="lastName"
@@ -104,7 +104,7 @@ export function LoginForm() {
 
               <div>
                 <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
-                  Phone Number
+                  Número de Teléfono
                 </label>
                 <input
                   id="phone"
@@ -120,7 +120,7 @@ export function LoginForm() {
 
           <div>
             <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
-              Email Address
+              Correo Electrónico
             </label>
             <input
               id="email"
@@ -135,7 +135,7 @@ export function LoginForm() {
 
           <div>
             <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-2">
-              Password
+              Contraseña
             </label>
             <input
               id="password"
@@ -153,7 +153,7 @@ export function LoginForm() {
             disabled={loading}
             className="w-full bg-blue-600 text-white py-3 rounded-lg font-medium hover:bg-blue-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {loading ? (isSignUp ? 'Creating account...' : 'Signing in...') : (isSignUp ? 'Sign Up' : 'Sign In')}
+            {loading ? (isSignUp ? 'Creando cuenta...' : 'Iniciando sesión...') : (isSignUp ? 'Registrarse' : 'Iniciar Sesión')}
           </button>
         </form>
 
@@ -162,7 +162,7 @@ export function LoginForm() {
             onClick={toggleMode}
             className="text-blue-600 hover:text-blue-700 font-medium transition"
           >
-            {isSignUp ? 'Already have an account? Sign in' : "Don't have an account? Sign up"}
+            {isSignUp ? '¿Ya tienes cuenta? Inicia sesión' : '¿No tienes cuenta? Regístrate'}
           </button>
         </div>
       </div>

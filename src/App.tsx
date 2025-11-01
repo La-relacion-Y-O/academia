@@ -12,7 +12,7 @@ function App() {
       <div className="min-h-screen bg-gradient-to-br from-blue-50 to-slate-100 flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-blue-600 mx-auto mb-4"></div>
-          <p className="text-gray-600 font-medium">Loading...</p>
+          <p className="text-gray-600 font-medium">Cargando...</p>
         </div>
       </div>
     );
@@ -32,7 +32,7 @@ function App() {
     default:
       return (
         <div className="min-h-screen bg-gray-100 flex items-center justify-center">
-          <p className="text-red-600">Invalid user role</p>
+          <p className="text-red-600">Rol de usuario inválido</p>
         </div>
       );
   }
