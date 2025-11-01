@@ -60,6 +60,27 @@ export const subjectService = {
     return data;
   },
 
+  async getTeacherClasses(teacherId: string) {
+    const { data, error } = await supabase
+      .from('subjects')
+      .select('*')
+      .eq('teacher_id', teacherId)
+      .order('created_at', { ascending: false });
+    if (error) throw error;
+    return data;
+  },
+
+  async getByClassCode(classCode: string) {
+    const { data, error } = await supabase
+      .from('subjects')
+      .select('*')
+      .eq('class_code', classCode)
+      .eq('is_active', true)
+      .maybeSingle();
+    if (error) throw error;
+    return data;
+  },
+
   async create(subject: Omit<Subject, 'id' | 'created_at'>) {
     const { data, error } = await supabase
       .from('subjects')
@@ -87,6 +108,15 @@ export const subjectService = {
       .delete()
       .eq('id', id);
     if (error) throw error;
+  },
+
+  generateClassCode(): string {
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    let code = '';
+    for (let i = 0; i < 6; i++) {
+      code += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    return code;
   }
 };
 
@@ -134,6 +164,36 @@ export const enrollmentService = {
       .from('enrollments')
       .select('*, profiles(*)')
       .eq('subject_id', subjectId);
+    if (error) throw error;
+    return data;
+  },
+
+  async isEnrolled(studentId: string, subjectId: string) {
+    const { data, error } = await supabase
+      .from('enrollments')
+      .select('id')
+      .eq('student_id', studentId)
+      .eq('subject_id', subjectId)
+      .maybeSingle();
+    if (error) throw error;
+    return data !== null;
+  },
+
+  async joinClass(studentId: string, subjectId: string) {
+    const currentYear = new Date().getFullYear().toString();
+    const currentMonth = new Date().getMonth();
+    const semester = currentMonth >= 7 ? 'Fall' : 'Spring';
+
+    const { data, error } = await supabase
+      .from('enrollments')
+      .insert([{
+        student_id: studentId,
+        subject_id: subjectId,
+        academic_year: currentYear,
+        semester: semester
+      }])
+      .select()
+      .single();
     if (error) throw error;
     return data;
   },

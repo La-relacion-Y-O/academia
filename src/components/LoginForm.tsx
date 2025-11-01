@@ -4,6 +4,7 @@ import { LogIn, UserPlus, CheckCircle, AlertCircle } from 'lucide-react';
 
 export function LoginForm() {
   const [isSignUp, setIsSignUp] = useState(false);
+  const [accountType, setAccountType] = useState<'student' | 'teacher'>('student');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [firstName, setFirstName] = useState('');
@@ -23,7 +24,7 @@ export function LoginForm() {
     try {
       if (isSignUp) {
         await signUp(email, password, {
-          role: 'student',
+          role: accountType,
           first_name: firstName,
           last_name: lastName,
           phone: phone
@@ -65,6 +66,7 @@ export function LoginForm() {
     setFirstName('');
     setLastName('');
     setPhone('');
+    setAccountType('student');
   };
 
   return (
@@ -80,7 +82,7 @@ export function LoginForm() {
           Sistema de Control Académico
         </h1>
         <p className="text-center text-gray-600 mb-8">
-          {isSignUp ? 'Crear tu cuenta de estudiante' : 'Inicia sesión para acceder a tu cuenta'}
+          {isSignUp ? 'Crear tu cuenta' : 'Inicia sesión para acceder a tu cuenta'}
         </p>
 
         <form onSubmit={handleSubmit} className="space-y-6">
@@ -100,6 +102,38 @@ export function LoginForm() {
 
           {isSignUp && (
             <>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-3">
+                  Tipo de Cuenta
+                </label>
+                <div className="grid grid-cols-2 gap-3 mb-6">
+                  <button
+                    type="button"
+                    onClick={() => setAccountType('student')}
+                    className={`p-4 rounded-lg border-2 transition ${
+                      accountType === 'student'
+                        ? 'border-blue-600 bg-blue-50'
+                        : 'border-gray-300 hover:border-blue-300'
+                    }`}
+                  >
+                    <div className="font-semibold text-gray-900">Estudiante</div>
+                    <div className="text-xs text-gray-600 mt-1">Unirse a clases</div>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setAccountType('teacher')}
+                    className={`p-4 rounded-lg border-2 transition ${
+                      accountType === 'teacher'
+                        ? 'border-green-600 bg-green-50'
+                        : 'border-gray-300 hover:border-green-300'
+                    }`}
+                  >
+                    <div className="font-semibold text-gray-900">Docente</div>
+                    <div className="text-xs text-gray-600 mt-1">Crear clases</div>
+                  </button>
+                </div>
+              </div>
+
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 mb-2">

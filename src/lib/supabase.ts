@@ -26,6 +26,9 @@ export type Subject = {
   code: string;
   description?: string;
   credits: number;
+  teacher_id?: string;
+  class_code?: string;
+  is_active?: boolean;
   created_at: string;
 };
 
