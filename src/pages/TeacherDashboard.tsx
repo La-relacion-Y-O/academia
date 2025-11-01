@@ -31,7 +31,6 @@ export function TeacherDashboard() {
 
   const [newClass, setNewClass] = useState({
     name: '',
-    code: '',
     description: '',
     credits: 3
   });
@@ -127,7 +126,7 @@ export function TeacherDashboard() {
       });
 
       setShowClassModal(false);
-      setNewClass({ name: '', code: '', description: '', credits: 3 });
+      setNewClass({ name: '', description: '', credits: 3 });
       loadClasses();
     } catch (error) {
       console.error('Error creating class:', error);
@@ -430,18 +429,6 @@ export function TeacherDashboard() {
           <div className="bg-white rounded-xl shadow-xl max-w-md w-full p-6">
             <h2 className="text-2xl font-bold text-gray-900 mb-6">Crear Nueva Clase</h2>
             <form onSubmit={handleCreateClass} className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Código de Materia</label>
-                <input
-                  type="text"
-                  required
-                  value={newClass.code}
-                  onChange={(e) => setNewClass({ ...newClass, code: e.target.value })}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
-                  placeholder="p. ej., MAT101"
-                />
-              </div>
-
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">Nombre de la Clase</label>
                 <input
