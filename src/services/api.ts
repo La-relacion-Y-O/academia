@@ -40,6 +40,74 @@ export const profileService = {
   }
 };
 
+export const teacherClassService = {
+  async getTeacherClasses(teacherId: string) {
+    const { data, error } = await supabase
+      .from('teacher_classes')
+      .select('*')
+      .eq('teacher_id', teacherId)
+      .order('created_at', { ascending: false });
+    if (error) throw error;
+    return data;
+  },
+
+  async getClassByCode(code: string) {
+    const { data, error } = await supabase
+      .from('teacher_classes')
+      .select('*')
+      .eq('code', code)
+      .eq('is_active', true)
+      .maybeSingle();
+    if (error) throw error;
+    return data;
+  },
+
+  async createClass(teacherId: string, name: string, code: string, description: string = '', credits: number = 3) {
+    const { data, error } = await supabase
+      .from('teacher_classes')
+      .insert([{
+        teacher_id: teacherId,
+        name,
+        code,
+        description,
+        credits,
+        is_active: true
+      }])
+      .select()
+      .single();
+    if (error) throw error;
+    return data;
+  },
+
+  async updateClass(id: string, updates: any) {
+    const { data, error } = await supabase
+      .from('teacher_classes')
+      .update(updates)
+      .eq('id', id)
+      .select()
+      .single();
+    if (error) throw error;
+    return data;
+  },
+
+  async deleteClass(id: string) {
+    const { error } = await supabase
+      .from('teacher_classes')
+      .delete()
+      .eq('id', id);
+    if (error) throw error;
+  },
+
+  generateClassCode(): string {
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    let code = '';
+    for (let i = 0; i < 6; i++) {
+      code += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    return code;
+  }
+};
+
 export const subjectService = {
   async getAll() {
     const { data, error } = await supabase
@@ -56,27 +124,6 @@ export const subjectService = {
       .select('*')
       .eq('id', id)
       .single();
-    if (error) throw error;
-    return data;
-  },
-
-  async getTeacherClasses(teacherId: string) {
-    const { data, error } = await supabase
-      .from('subjects')
-      .select('*')
-      .eq('teacher_id', teacherId)
-      .order('created_at', { ascending: false });
-    if (error) throw error;
-    return data;
-  },
-
-  async getByClassCode(classCode: string) {
-    const { data, error } = await supabase
-      .from('subjects')
-      .select('*')
-      .eq('class_code', classCode)
-      .eq('is_active', true)
-      .maybeSingle();
     if (error) throw error;
     return data;
   },
@@ -108,15 +155,6 @@ export const subjectService = {
       .delete()
       .eq('id', id);
     if (error) throw error;
-  },
-
-  generateClassCode(): string {
-    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-    let code = '';
-    for (let i = 0; i < 6; i++) {
-      code += chars.charAt(Math.floor(Math.random() * chars.length));
-    }
-    return code;
   }
 };
 
@@ -152,43 +190,43 @@ export const teacherSubjectService = {
 export const enrollmentService = {
   async getStudentEnrollments(studentId: string) {
     const { data, error } = await supabase
-      .from('enrollments')
-      .select('*, subjects(*)')
+      .from('student_enrollments')
+      .select('*, teacher_classes(*)')
       .eq('student_id', studentId);
     if (error) throw error;
     return data;
   },
 
-  async getSubjectEnrollments(subjectId: string) {
+  async getClassEnrollments(classId: string) {
     const { data, error } = await supabase
-      .from('enrollments')
+      .from('student_enrollments')
       .select('*, profiles(*)')
-      .eq('subject_id', subjectId);
+      .eq('class_id', classId);
     if (error) throw error;
     return data;
   },
 
-  async isEnrolled(studentId: string, subjectId: string) {
+  async isEnrolled(studentId: string, classId: string) {
     const { data, error } = await supabase
-      .from('enrollments')
+      .from('student_enrollments')
       .select('id')
       .eq('student_id', studentId)
-      .eq('subject_id', subjectId)
+      .eq('class_id', classId)
       .maybeSingle();
     if (error) throw error;
     return data !== null;
   },
 
-  async joinClass(studentId: string, subjectId: string) {
+  async enrollInClass(studentId: string, classId: string) {
     const currentYear = new Date().getFullYear().toString();
     const currentMonth = new Date().getMonth();
     const semester = currentMonth >= 7 ? 'Fall' : 'Spring';
 
     const { data, error } = await supabase
-      .from('enrollments')
+      .from('student_enrollments')
       .insert([{
         student_id: studentId,
-        subject_id: subjectId,
+        class_id: classId,
         academic_year: currentYear,
         semester: semester
       }])
@@ -198,19 +236,9 @@ export const enrollmentService = {
     return data;
   },
 
-  async create(enrollment: Omit<Enrollment, 'id' | 'enrolled_at'>) {
-    const { data, error } = await supabase
-      .from('enrollments')
-      .insert([enrollment])
-      .select()
-      .single();
-    if (error) throw error;
-    return data;
-  },
-
   async delete(id: string) {
     const { error } = await supabase
-      .from('enrollments')
+      .from('student_enrollments')
       .delete()
       .eq('id', id);
     if (error) throw error;
